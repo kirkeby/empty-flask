@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, division
 
-from testing import client, with_database
+from .testing import client, with_database
 
 @with_database
 def test_get_index():

@@ -3,12 +3,12 @@ from __future__ import unicode_literals, division
 from nose.tools import with_setup
 from sqlalchemy import create_engine
 
-from app import app
-import database as db
+from .. import app
+from .. import database as db
 
 __all__ = ['client']
 
-client = app.test_client()
+client = app.app.test_client()
 engine = None
 
 def setup():

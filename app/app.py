@@ -4,8 +4,8 @@ from flask import Flask
 from flask.ext.genshi import Genshi, render_response
 import os
 
-import database as db
-from middleware import sqlalchemy_middleware
+from . import database as db
+from .middleware import sqlalchemy_middleware
 
 app = Flask(__name__)
 app.genshi = Genshi(app)
