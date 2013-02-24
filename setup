@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+cd `dirname $0`
+
+virtualenv venv --prompt '(venv) '
+. ./venv/bin/activate
+pip install -r requirements.txt

@@ -1,0 +1,15 @@
+Flask
+Flask-Genshi
+Flask-WTF
+SQLAlchemy
+psycopg2
+gunicorn
+raven
+
+# FIXME - The following are really only for development.
+# FIXME - I really should upload heywood to pypi <_<
+https://github.com/doptio/heywood/archive/master.zip
+nose
+pysqlite
+coverage
+mock
