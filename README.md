@@ -8,5 +8,5 @@ How to use this:
 
  1. Copy this directory.
  2. Run the setup script.
- 3. Edit the database URL and HTTP port in .env.
+ 3. Edit the database URL and HTTP port in .shrc.
  4. Work.
