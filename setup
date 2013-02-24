@@ -3,6 +3,10 @@
 set -e
 cd `dirname $0`
 
-virtualenv venv --prompt '(venv) '
+name=`basename $PWD`
+
+deactivate 2> /dev/null || true
+test -d venv && rm -rf venv
+virtualenv venv --prompt "(${name}) "
 . ./venv/bin/activate
 pip install -r requirements.txt
