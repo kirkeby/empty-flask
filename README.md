@@ -8,4 +8,5 @@ How to use this:
 
  1. Copy this directory.
  2. Run the setup script.
- 3. Work.
+ 3. Edit the database URL and HTTP port in .env.
+ 4. Work.
