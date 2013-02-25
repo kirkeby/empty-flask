@@ -1,4 +1,4 @@
-cov/
+coverage-html/
 dist/
 build/
 venv/

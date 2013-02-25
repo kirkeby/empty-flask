@@ -4,6 +4,6 @@ set -e
 
 coverage erase
 env nose="coverage run --source=app -- `which nosetests`" ./test
-coverage html -d cov
+coverage html -d coverage-html
 coverage report
 coverage erase
