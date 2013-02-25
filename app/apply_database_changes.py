@@ -8,7 +8,7 @@ import os
 import sys
 from sqlalchemy import Column, String, DateTime
 
-from .database import Session, Base, engine
+from .database import Session, Base
 
 here = os.path.dirname(__file__)
 
@@ -37,36 +37,40 @@ def apply_script(session, script):
             eval(code, {'session': session})
 
 
+def apply_changes(session, root, really):
+    applied = 0
+
+    AppliedChanges.__table__.create(session.get_bind(), checkfirst=True)
+
+    for script in sorted(glob(os.path.join(root, '*'))):
+        if script.endswith('~'):
+            continue
+
+        name = os.path.basename(script)
+        if session.query(AppliedChanges).get(name):
+            continue
+
+        print 'Applying %s . . .' % name
+        applied += 1
+
+        if really:
+            apply_script(session, script)
+
+        change = AppliedChanges(applied=datetime.utcnow(), name=name)
+        session.add(change)
+        session.commit()
+
+    if not applied:
+        print 'No database-changes is good news!'
+
+
 def main():
     really = '-n' not in sys.argv
+    root = os.path.join(here, 'sql', 'changes')
 
+    session = Session()
     try:
-        applied = 0
-
-        session = Session()
-        AppliedChanges.__table__.create(engine, checkfirst=True)
-
-        for script in sorted(glob('%s/sql/changes/*' % here)):
-            if script.endswith('~'):
-                continue
-
-            name = os.path.basename(script)
-            if session.query(AppliedChanges).get(name):
-                continue
-
-            print 'Applying %s . . .' % name
-            applied += 1
-
-            if really:
-                apply_script(session, script)
-
-            change = AppliedChanges(applied=datetime.utcnow(), name=name)
-            session.add(change)
-            session.commit()
-
-        if not applied:
-            print 'No database-changes is good news!'
-
+        apply_changes(session, root, really)
     finally:
         Session.remove()
 
