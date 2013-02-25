@@ -10,3 +10,5 @@ test -d venv && rm -rf venv
 virtualenv venv --prompt "(${name}) "
 . ./venv/bin/activate
 pip install -r requirements.txt
+
+ln -sf ../../pre-commit .git/hooks/pre-commit
