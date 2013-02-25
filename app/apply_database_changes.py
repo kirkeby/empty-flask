@@ -8,7 +8,7 @@ import os
 import sys
 from sqlalchemy import Column, String, DateTime
 
-from database import Session, Base, engine
+from .database import Session, Base, engine
 
 here = os.path.dirname(__file__)
 
