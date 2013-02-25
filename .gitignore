@@ -1,4 +1,5 @@
-dist
-build
-venv
+cov/
+dist/
+build/
+venv/
 *.pyc

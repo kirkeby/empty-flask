@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+coverage erase
+env nose="coverage run --source=app -- `which nosetests`" ./test
+coverage html -d cov
+coverage report
+coverage erase
