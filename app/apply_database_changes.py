@@ -12,6 +12,7 @@ from .database import Session, Base, engine
 
 here = os.path.dirname(__file__)
 
+
 # The database migration models
 class AppliedChanges(Base):
     __tablename__ = 'applied_changes'
@@ -19,8 +20,10 @@ class AppliedChanges(Base):
     applied = Column(DateTime, nullable=False)
     name = Column(String, primary_key=True)
 
+
 def parse_sql_script(f):
     return filter(None, [s.strip() for s in f.read().strip().split('\n\n')])
+
 
 def apply_script(session, script):
     with open(script) as file:
@@ -32,6 +35,7 @@ def apply_script(session, script):
         elif script.endswith('.py'):
             code = compile(file.read(), script, 'exec')
             eval(code, {'session': session})
+
 
 def main():
     really = '-n' not in sys.argv

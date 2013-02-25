@@ -19,6 +19,8 @@ formatters = [
                if r.exc_info
                else None),
 ]
+
+
 class Formatter(object):
     def __init__(self, *args, **kwargs):
         pass
@@ -42,6 +44,7 @@ class Formatter(object):
 
 # Thread-local context for Formatter.
 loggy_context = threading.local()
+
 
 @contextmanager
 def loggy_context_manager():

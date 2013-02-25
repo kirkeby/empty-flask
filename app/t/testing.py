@@ -11,6 +11,7 @@ __all__ = ['client']
 client = app.app.test_client()
 engine = None
 
+
 def setup():
     global engine
 
@@ -19,6 +20,7 @@ def setup():
     db.Base.metadata.create_all(bind=engine)
     db.User.create('root')
     db.Session.commit()
+
 
 def teardown():
     db.Base.metadata.drop_all(bind=engine)

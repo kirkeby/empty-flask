@@ -3,8 +3,8 @@ from __future__ import unicode_literals, division
 from datetime import datetime
 import os
 from sqlalchemy import create_engine
-from sqlalchemy import Column, ForeignKey, Integer, String, \
-                       Date, DateTime, Boolean
+from sqlalchemy import (Column, ForeignKey, Integer, String,
+                        Date, DateTime, Boolean)
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import func
@@ -20,15 +20,19 @@ Session = scoped_session(sessionmaker(bind=engine))
 # Create declarative mappings.
 Base = declarative_base()
 
+
 # Database errors.
 class DatabaseError(Exception):
     pass
 
+
 class NoSuchUser(DatabaseError):
     pass
 
+
 class UserExists(DatabaseError):
     pass
+
 
 # Database mappings.
 class User(Base):
@@ -64,8 +68,8 @@ class User(Base):
     def find(cls, login):
         try:
             return (Session()
-                        .query(User)
-                        .filter(func.lower(User.login) == login.lower())
-                        .one())
+                    .query(User)
+                    .filter(func.lower(User.login) == login.lower())
+                    .one())
         except NoResultFound:
             raise NoSuchUser(login)

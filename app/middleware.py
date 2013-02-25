@@ -1,5 +1,6 @@
 import database as db
 
+
 def sqlalchemy_middleware(app):
     def sqlalchemy_middleware_inner(environ, start_response):
         # This is a WSGI middleware because Flask cannot be trusted with

@@ -13,3 +13,7 @@ nose
 pysqlite
 coverage
 mock
+
+pep8
+pyflakes
+pylint
