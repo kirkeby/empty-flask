@@ -1,4 +1,5 @@
 from nose.tools import with_setup
+from mock import patch
 import os
 from sqlalchemy import create_engine
 
@@ -6,6 +7,17 @@ from .. import apply_database_changes as adc
 from .. import database as db
 
 engine = None
+
+expected_scripts = [
+    '19560909-01-script.sql',
+    '19790707-01-script.py',
+]
+
+here = os.path.dirname(__file__)
+root = os.path.join(here, 'changes')
+
+root_name = __name__.replace('.t.test_', '.') + '.root'
+root_patch = patch(root_name, root)
 
 
 def setup():
@@ -23,13 +35,12 @@ with_database = with_setup(setup, teardown)
 
 
 def test_apply_database_changes():
-    here = os.path.dirname(__file__)
-
     session = db.Session()
 
-    adc.apply_changes(session,
-                      os.path.join(here, 'changes'),
-                      True)
+    with root_patch:
+        # Call twice to check we don't double-apply.
+        adc.main()
+        adc.main()
 
     applied = session.query(adc.AppliedChanges).all()
-    assert [c.name for c in applied] == ['19790707-01-script.sql']
+    assert [c.name for c in applied] == expected_scripts

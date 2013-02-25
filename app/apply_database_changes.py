@@ -11,6 +11,7 @@ from sqlalchemy import Column, String, DateTime
 from .database import Session, Base
 
 here = os.path.dirname(__file__)
+root = os.path.join(here, 'sql', 'changes')
 
 
 # The database migration models
@@ -66,7 +67,6 @@ def apply_changes(session, root, really):
 
 def main():
     really = '-n' not in sys.argv
-    root = os.path.join(here, 'sql', 'changes')
 
     session = Session()
     try:
@@ -74,5 +74,5 @@ def main():
     finally:
         Session.remove()
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     main()
