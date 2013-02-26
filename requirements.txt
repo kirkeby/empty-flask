@@ -7,8 +7,7 @@ gunicorn
 raven
 
 # FIXME - The following are really only for development.
-# FIXME - I really should upload heywood to pypi <_<
-https://github.com/doptio/heywood/archive/master.zip
+heywood
 nose
 pysqlite
 coverage
